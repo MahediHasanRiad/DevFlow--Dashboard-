@@ -1,39 +1,59 @@
 export interface NavItem {
   title: string;
   href: string;
-  icon: string;
+  icon?: string;
   badge?: string | number;
   badgeColor?: 'primary' | 'success' | 'warning';
+  hasSubmenu?: boolean;
 }
 
 export interface NavSection {
-  title?: string;
+  title: string;
+  icon: string;
   items: NavItem[];
 }
 
 export const NAV_SECTIONS: NavSection[] = [
   {
-    title: 'General',
+    title: 'OVERVIEW',
+    icon: 'Home',
     items: [
-      { title: 'Overview', href: '#overview', icon: 'LayoutDashboard' },
-      { title: 'Analytics', href: '#analytics', icon: 'BarChart3' },
-      { title: 'Projects', href: '#projects', icon: 'FolderKanban', badge: '12', badgeColor: 'primary' },
-      { title: 'Tasks', href: '#tasks', icon: 'CheckSquare', badge: '4', badgeColor: 'warning' },
+      { title: 'My Dashboard', href: '#overview' },
+      { title: 'Daily Tracking', href: '#daily-tracking' },
+      { title: 'MAKTech ChatBox', href: '#chatbox' },
     ],
   },
   {
-    title: 'Management',
+    title: 'OPERATIONS',
+    icon: 'Wrench',
     items: [
-      { title: 'Team', href: '#team', icon: 'Users' },
-      { title: 'Billing & Plans', href: '#billing', icon: 'CreditCard' },
-      { title: 'Integrations', href: '#integrations', icon: 'Layers' },
+      { title: 'Meeting Scheduling', href: '#meeting-scheduling' },
     ],
   },
   {
-    title: 'Preferences',
+    title: 'WORK',
+    icon: 'Briefcase',
     items: [
-      { title: 'Settings', href: '#settings', icon: 'Settings' },
-      { title: 'Help & Docs', href: '#help', icon: 'HelpCircle' },
+      { title: 'All Orders', href: '#all-orders' },
+      { title: 'My Assigned Orders', href: '#assigned-orders' },
+      { title: 'Revision Orders', href: '#revision-orders' },
+      { title: 'Old Order Revision', href: '#old-order-revision' },
+      { title: 'Cancel Page', href: '#cancel-page' },
+      { title: 'Dispute Orders', href: '#dispute-orders' },
+      { title: 'My Target & Bonus', href: '#target-bonus' },
+    ],
+  },
+  {
+    title: 'MAKTECH-HRM',
+    icon: 'Contact',
+    items: [
+      { title: 'My Details', href: '#my-details' },
+      { title: 'My HRM Dashboard', href: '#hrm-dashboard' },
+      { title: 'My Attendance', href: '#my-attendance' },
+      { title: 'My Leaves', href: '#my-leaves' },
+      { title: 'Apply for Leave', href: '#apply-leave' },
+      { title: 'Compliance Documents', href: '#compliance-documents' },
+      { title: 'IT Support Tickets', href: '#it-support-tickets' },
     ],
   },
 ];

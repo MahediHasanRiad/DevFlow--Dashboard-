@@ -45,7 +45,6 @@ export function AnalyticsCharts() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Primary Analytics Trend Chart (2 columns) */}
       <Card className="lg:col-span-2 shadow-subtle hover:shadow-premium dark:hover:shadow-premium-dark transition-all duration-200">
         <CardHeader className="flex flex-row items-center justify-between pb-4">
           <div className="space-y-1">
@@ -60,7 +59,6 @@ export function AnalyticsCharts() {
             </CardDescription>
           </div>
 
-          {/* Time range selector pills */}
           <div className="flex items-center rounded-lg border border-border bg-muted/60 p-1 text-xs">
             {(['7d', '30d', '90d', '12m'] as TimeRange[]).map((range) => (
               <button
@@ -83,10 +81,8 @@ export function AnalyticsCharts() {
         </CardHeader>
 
         <CardContent>
-          {/* Interactive Chart Canvas */}
           <div className="h-64 w-full pt-4">
             <div className="relative h-48 w-full flex items-end justify-between gap-2 sm:gap-6 px-2 border-b border-border/80">
-              {/* Background grid lines */}
               <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40">
                 <div className="border-b border-dashed border-border w-full" />
                 <div className="border-b border-dashed border-border w-full" />
@@ -94,7 +90,6 @@ export function AnalyticsCharts() {
                 <div className="border-b border-dashed border-border w-full" />
               </div>
 
-              {/* Data Bars / Visual columns */}
               {currentData.map((item, idx) => {
                 const heightPrimary = (item.value / maxValue) * 100;
                 const heightSecondary = (item.secondary / maxValue) * 100;
@@ -106,7 +101,6 @@ export function AnalyticsCharts() {
                     onMouseEnter={() => setActiveDataIndex(idx)}
                     className="relative flex-1 flex flex-col items-center justify-end h-full group cursor-pointer z-10"
                   >
-                    {/* Floating Tooltip */}
                     {isHovered && (
                       <div className="absolute -top-12 z-20 flex flex-col items-center rounded-lg bg-foreground text-background px-2.5 py-1 shadow-lg text-[11px] font-semibold whitespace-nowrap animate-fade-in">
                         <span>Revenue: ${item.value}k</span>
@@ -116,7 +110,6 @@ export function AnalyticsCharts() {
                     )}
 
                     <div className="w-full max-w-[42px] flex items-end justify-center gap-1.5 h-full">
-                      {/* Secondary Bar */}
                       <div
                         style={{ height: `${heightSecondary}%` }}
                         className={cn(
@@ -124,7 +117,6 @@ export function AnalyticsCharts() {
                           isHovered && 'bg-violet-400/40 dark:bg-violet-500/40'
                         )}
                       />
-                      {/* Primary Bar */}
                       <div
                         style={{ height: `${heightPrimary}%` }}
                         className={cn(
@@ -147,7 +139,6 @@ export function AnalyticsCharts() {
               })}
             </div>
 
-            {/* Chart Legend */}
             <div className="mt-4 flex items-center justify-center gap-6 text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full bg-primary" />
@@ -162,7 +153,6 @@ export function AnalyticsCharts() {
         </CardContent>
       </Card>
 
-      {/* Traffic Sources & Conversion Donut Panel (1 column) */}
       <Card className="shadow-subtle hover:shadow-premium dark:hover:shadow-premium-dark transition-all duration-200">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
@@ -175,11 +165,9 @@ export function AnalyticsCharts() {
         </CardHeader>
 
         <CardContent className="space-y-5 pt-2">
-          {/* Donut graphic representation */}
           <div className="flex justify-center items-center py-2">
             <div className="relative flex items-center justify-center h-36 w-36">
               <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
-                {/* Background Ring */}
                 <circle
                   cx="18"
                   cy="18"
@@ -189,7 +177,6 @@ export function AnalyticsCharts() {
                   strokeWidth="3.2"
                   className="text-muted/40"
                 />
-                {/* Organic Segment (48%) */}
                 <circle
                   cx="18"
                   cy="18"
@@ -201,7 +188,6 @@ export function AnalyticsCharts() {
                   strokeDashoffset="0"
                   strokeLinecap="round"
                 />
-                {/* Direct Segment (32%) */}
                 <circle
                   cx="18"
                   cy="18"
@@ -213,7 +199,6 @@ export function AnalyticsCharts() {
                   strokeDashoffset="-48"
                   strokeLinecap="round"
                 />
-                {/* Referral Segment (20%) */}
                 <circle
                   cx="18"
                   cy="18"
@@ -234,7 +219,6 @@ export function AnalyticsCharts() {
             </div>
           </div>
 
-          {/* Breakdown items list */}
           <div className="space-y-2.5">
             <div className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">

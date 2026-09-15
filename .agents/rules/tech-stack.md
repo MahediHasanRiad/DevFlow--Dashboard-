@@ -13,25 +13,37 @@ trigger: always_on
 
 ## Folder structure
 
-  /src
-  |-- /components
-  |   |-- /ui (shadcn/ui components, e.g. Button, Card, Input, Badge, Sidebar, etc.)
-  |   |-- Layout.tsx
-  |   |-- Sidebar.tsx
-  |   |-- Navbar.tsx
-  |   |-- DashboardOverview.tsx
-  |   |-- AnalyticsCharts.tsx
-  |   |-- ActivityFeed.tsx
-  |   |-- MetricCard.tsx
-  |   |-- MobileMenu.tsx
-  |-- /hooks
-  |   |-- useTheme.ts
-  |-- /lib
-  |   |-- utils.ts
-  |   |-- constants.ts
-  |-- /assets
-  |   |-- icons.svg (or separate icon files if needed)
-  |-- pages
-  |   |-- Dashboard.tsx
-  |-- App.tsx
-  |-- main.tsx
+  src/
+├── components/
+│   ├── layout/                      # Global shell & navigation components
+│   │   ├── Layout.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── MobileMenu.tsx
+│   ├── common/                      # Shared feature modals & global dialogs
+│   │   └── QuickActionModal.tsx
+│   └── ui/                          # shadcn/ui primitive design system
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dropdown.tsx
+│       └── input.tsx
+├── features/                        # Domain-driven feature modules
+│   └── dashboard/
+│       ├── components/
+│       │   ├── ActivityFeed.tsx
+│       │   ├── AnalyticsCharts.tsx
+│       │   ├── DashboardOverview.tsx
+│       │   └── MetricCard.tsx
+│       └── types.ts
+├── hooks/
+│   └── useTheme.ts
+├── lib/
+│   ├── constants.ts
+│   └── utils.ts
+├── pages/
+│   └── Dashboard.page.tsx
+├── App.tsx
+├── index.css
+└── main.tsx

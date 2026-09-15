@@ -35,7 +35,6 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-border/80 bg-background/80 px-4 sm:px-6 backdrop-blur-md">
-      {/* Left side: Mobile menu toggle + Search bar */}
       <div className="flex items-center gap-3 md:gap-4 flex-1 max-w-lg">
         <button
           onClick={onOpenMobileMenu}
@@ -57,9 +56,7 @@ export function Navbar({
         </div>
       </div>
 
-      {/* Right side: Quick Action, Theme Switcher, Notifications, User Avatar */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Quick create action */}
         <Button
           onClick={onOpenQuickAction}
           size="sm"
@@ -68,7 +65,6 @@ export function Navbar({
           + New Project
         </Button>
 
-        {/* Theme switcher */}
         <button
           onClick={toggleTheme}
           className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200 shadow-subtle active:scale-95"
@@ -82,7 +78,6 @@ export function Navbar({
           )}
         </button>
 
-        {/* Notifications Dropdown */}
         <Dropdown
           align="right"
           className="w-80"
@@ -136,7 +131,6 @@ export function Navbar({
           </div>
         </Dropdown>
 
-        {/* User Profile Avatar Dropdown */}
         <Dropdown
           align="right"
           className="w-56"

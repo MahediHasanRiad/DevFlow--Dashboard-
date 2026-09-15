@@ -8,7 +8,7 @@ import {
   Rocket,
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { type MetricData } from '@/lib/constants';
+import { type MetricData } from '@/features/dashboard/types';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -23,25 +23,21 @@ const colorStyles = {
     bg: 'bg-primary/10 text-primary',
     glow: 'group-hover:border-primary/40',
     line: 'stroke-primary',
-    gradient: 'from-primary/20 to-transparent',
   },
   emerald: {
     bg: 'bg-emerald-500/10 text-emerald-500',
     glow: 'group-hover:border-emerald-500/40',
     line: 'stroke-emerald-500',
-    gradient: 'from-emerald-500/20 to-transparent',
   },
   amber: {
     bg: 'bg-amber-500/10 text-amber-500',
     glow: 'group-hover:border-amber-500/40',
     line: 'stroke-amber-500',
-    gradient: 'from-amber-500/20 to-transparent',
   },
   sky: {
     bg: 'bg-sky-500/10 text-sky-500',
     glow: 'group-hover:border-sky-500/40',
     line: 'stroke-sky-500',
-    gradient: 'from-sky-500/20 to-transparent',
   },
 };
 
@@ -49,7 +45,6 @@ export function MetricCard({ metric }: { metric: MetricData }) {
   const IconComponent = iconMap[metric.icon] || TrendingUp;
   const style = colorStyles[metric.colorScheme] || colorStyles.indigo;
 
-  // Generate SVG Sparkline coordinates
   const points = metric.chartData;
   const max = Math.max(...points);
   const min = Math.min(...points);
@@ -87,7 +82,6 @@ export function MetricCard({ metric }: { metric: MetricData }) {
           </div>
         </div>
 
-        {/* Trend Indicator & Sparkline */}
         <div className="mt-4 flex items-end justify-between gap-2">
           <div className="flex items-center gap-1.5">
             <span
@@ -108,7 +102,6 @@ export function MetricCard({ metric }: { metric: MetricData }) {
             <span className="text-[11px] text-muted-foreground">{metric.timeframe}</span>
           </div>
 
-          {/* Sparkline Graphic */}
           <div className="w-24 h-9 relative">
             <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
               <defs>

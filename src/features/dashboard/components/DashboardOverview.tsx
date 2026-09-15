@@ -12,7 +12,6 @@ interface DashboardOverviewProps {
 export function DashboardOverview({ onOpenQuickAction }: DashboardOverviewProps) {
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Welcome Banner / Overview Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2.5">
@@ -41,17 +40,14 @@ export function DashboardOverview({ onOpenQuickAction }: DashboardOverviewProps)
         </div>
       </div>
 
-      {/* KPI Metric Summary Grid (4 cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {METRIC_CARDS.map((metric) => (
           <MetricCard key={metric.id} metric={metric} />
         ))}
       </div>
 
-      {/* Visual Analytics & Charts */}
       <AnalyticsCharts />
 
-      {/* Recent Activities and Microservice Data Table */}
       <ActivityFeed />
     </div>
   );

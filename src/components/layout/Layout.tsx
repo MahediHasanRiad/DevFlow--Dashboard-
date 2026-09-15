@@ -23,7 +23,6 @@ export function Layout({
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-row">
-      {/* Desktop Sidebar */}
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
@@ -32,7 +31,6 @@ export function Layout({
         onOpenQuickAction={onOpenQuickAction}
       />
 
-      {/* Mobile Drawer Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
@@ -40,7 +38,6 @@ export function Layout({
         setActiveRoute={setActiveRoute}
       />
 
-      {/* Main App Canvas */}
       <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
         <Navbar
           theme={theme}

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
-import { RECENT_ACTIVITIES, type ActivityItem } from '@/lib/constants';
+import { RECENT_ACTIVITIES } from '@/lib/constants';
+import { type ActivityItem } from '@/features/dashboard/types';
 import {
   CheckCircle2,
   Clock,
@@ -47,7 +48,6 @@ export function ActivityFeed() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Recent Activity Timeline (1 column) */}
       <Card className="shadow-subtle hover:shadow-premium dark:hover:shadow-premium-dark transition-all duration-200">
         <CardHeader className="flex flex-row items-center justify-between pb-3">
           <div>
@@ -61,7 +61,6 @@ export function ActivityFeed() {
           <div className="relative pl-6 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[2px] before:bg-border">
             {filteredActivities.map((act) => (
               <div key={act.id} className="relative group">
-                {/* Timeline node dot */}
                 <div className="absolute -left-6 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-background border-2 border-primary ring-2 ring-background">
                   <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                 </div>
@@ -79,7 +78,7 @@ export function ActivityFeed() {
                     <span className="text-foreground/90 font-medium">{act.action}</span>: {act.target}
                   </p>
                   <div className="pt-1">
-                    <Badge variant={getStatusBadgeVariant(act.status)} className="text-[9px] px-1.5 py-0">
+                    <Badge variant={getStatusBadgeVariant(act.status as any)} className="text-[9px] px-1.5 py-0">
                       {act.badgeType} • {act.status}
                     </Badge>
                   </div>
@@ -90,7 +89,6 @@ export function ActivityFeed() {
         </CardContent>
       </Card>
 
-      {/* Projects & Team Deployment Data Table (2 columns) */}
       <Card className="lg:col-span-2 shadow-subtle hover:shadow-premium dark:hover:shadow-premium-dark transition-all duration-200">
         <CardHeader className="flex flex-row items-center justify-between pb-3">
           <div>
