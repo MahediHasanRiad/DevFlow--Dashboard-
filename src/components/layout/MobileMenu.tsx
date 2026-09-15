@@ -9,7 +9,6 @@ import {
   ChevronDown,
   X,
   LogOut,
-  Sparkles,
 } from 'lucide-react';
 import { NAV_SECTIONS, type NavItem } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
@@ -60,15 +59,14 @@ export function MobileMenu({
             transition={{ type: 'spring', damping: 25, stiffness: 280 }}
             className="fixed inset-y-0 left-0 w-4/5 max-w-xs bg-sidebar border-r border-sidebar-border shadow-2xl flex flex-col z-50 p-4"
           >
-            <div className="flex items-center justify-between pb-4 border-b border-sidebar-border/80 mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-violet-500 text-white shadow-glow-primary">
-                  <Sparkles className="h-4 w-4" />
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-sidebar-border/80 mb-2">
+              <div className="flex flex-col leading-tight">
+                <div className="flex items-center gap-1 font-extrabold text-sm tracking-tight">
+                  <span className="text-foreground">MAKTech</span>
+                  <span className="text-sky-400">Business</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-bold text-sm text-foreground">DevFlow</span>
-                  <span className="text-[10px] text-muted-foreground">Admin Workspace</span>
-                </div>
+                <span className="text-xs font-bold text-violet-400 tracking-wider">OS</span>
               </div>
               <button
                 onClick={onClose}
@@ -79,15 +77,29 @@ export function MobileMenu({
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+            {/* Logged in user block */}
+            <div className="px-3 py-2 border border-border/60 rounded-xl bg-muted/20 mb-3">
+              <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground/80">
+                LOGGED IN AS
+              </p>
+              <p className="text-xs font-bold text-foreground truncate mt-0.5">
+                MAHEDI HASAN RIAD
+              </p>
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">
+                TEAM MEMBER
+              </p>
+            </div>
+
+            {/* Navigation sections */}
+            <div className="flex-1 overflow-y-auto space-y-3.5 pr-1">
               {NAV_SECTIONS.map((section, idx) => {
                 const SectionIcon = sectionIconMap[section.icon] || Home;
 
                 return (
                   <div key={idx} className="space-y-1">
-                    <div className="flex items-center justify-between px-3 py-1 text-muted-foreground">
+                    <div className="flex items-center justify-between px-2 py-1 text-muted-foreground">
                       <div className="flex items-center gap-2">
-                        <SectionIcon className="h-4 w-4 text-muted-foreground" />
+                        <SectionIcon className="h-3.5 w-3.5 text-muted-foreground" />
                         <span className="text-[10px] font-bold uppercase tracking-wider">
                           {section.title}
                         </span>
@@ -104,7 +116,7 @@ export function MobileMenu({
                             key={item.href}
                             onClick={() => handleNavClick(item.href)}
                             className={cn(
-                              'flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium transition-colors',
+                              'flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-xs font-medium transition-colors',
                               isActive
                                 ? 'bg-[#2b244d] text-white font-semibold border border-violet-500/30'
                                 : 'text-sidebar-foreground hover:bg-sidebar-accent'
@@ -137,6 +149,7 @@ export function MobileMenu({
               })}
             </div>
 
+            {/* Sign Out at bottom */}
             <div className="pt-3 border-t border-sidebar-border/80 mt-2">
               <button
                 onClick={onClose}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
-import { DashboardPage } from '@/pages/Dashboard.page';
+import { MyDashboardPage } from '@/pages/my-dashboard.page';
 import { QuickActionModal } from '@/components/common/QuickActionModal';
 
 export function App() {
@@ -14,10 +14,7 @@ export function App() {
         setActiveRoute={setActiveRoute}
         onOpenQuickAction={() => setIsModalOpen(true)}
       >
-        <DashboardPage
-          activeRoute={activeRoute}
-          onOpenQuickAction={() => setIsModalOpen(true)}
-        />
+        <MyDashboardPage />
       </Layout>
 
       <QuickActionModal

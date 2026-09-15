@@ -1,177 +1,129 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Search,
   Bell,
   Sun,
   Moon,
   Menu,
-  User,
-  Settings,
-  Shield,
-  LogOut,
-  Command,
+  LifeBuoy,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Avatar } from '@/components/ui/avatar';
-import { Dropdown, DropdownItem, DropdownSeparator } from '@/components/ui/dropdown';
-import { Badge } from '@/components/ui/badge';
 import { type Theme } from '@/hooks/useTheme';
 
 interface NavbarProps {
   theme: Theme;
   toggleTheme: () => void;
   onOpenMobileMenu: () => void;
-  onOpenQuickAction?: () => void;
+  title?: string;
 }
 
 export function Navbar({
   theme,
   toggleTheme,
   onOpenMobileMenu,
-  onOpenQuickAction,
+  title = 'My Dashboard',
 }: NavbarProps) {
-  const [hasNotifications, setHasNotifications] = useState(true);
+  const [currentDateTime, setCurrentDateTime] = useState('');
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      };
+      setCurrentDateTime(now.toLocaleString('en-US', options));
+    };
+
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-border/80 bg-background/80 px-4 sm:px-6 backdrop-blur-md">
-      <div className="flex items-center gap-3 md:gap-4 flex-1 max-w-lg">
+    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-border/80 bg-background/95 px-4 sm:px-6 backdrop-blur-md">
+      {/* Left: Mobile menu toggle + Page Title */}
+      <div className="flex items-center gap-3">
         <button
           onClick={onOpenMobileMenu}
-          className="flex md:hidden h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground transition-colors"
+          className="flex md:hidden h-8 w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground transition-colors"
           aria-label="Open mobile menu"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-4 w-4" />
         </button>
 
-        <div className="relative w-full max-w-sm">
-          <Input
-            placeholder="Search projects, tasks, metrics... (⌘K)"
-            icon={<Search className="h-4 w-4" />}
-            className="h-9 bg-card/60 text-xs pr-12 focus-visible:bg-card"
+        <h1 className="text-base sm:text-lg font-bold text-foreground tracking-tight whitespace-nowrap">
+          {title}
+        </h1>
+      </div>
+
+      {/* Center: Global Search Input */}
+      <div className="hidden sm:flex items-center flex-1 max-w-md mx-4">
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search people, orders, clients, and more..."
+            className="h-8 w-full rounded-xl border border-border/70 bg-card/60 pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
           />
-          <div className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
-            <Command className="h-2.5 w-2.5" /> K
-          </div>
         </div>
       </div>
 
+      {/* Right: Date, Support, Theme Switcher, Notifications */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Date / Time string */}
+        <div className="hidden lg:flex flex-col text-right leading-none">
+          <span className="text-[11px] font-semibold text-muted-foreground">
+            {currentDateTime || 'Tue, Sep 15, 2026 12:01 PM'}
+          </span>
+        </div>
+
+        {/* Support button */}
         <Button
-          onClick={onOpenQuickAction}
+          variant="outline"
           size="sm"
-          className="hidden sm:inline-flex bg-primary font-semibold shadow-sm hover:shadow-glow-primary text-xs"
+          className="h-8 gap-1.5 text-xs font-semibold px-2.5 rounded-lg border-border/80 bg-card/60 text-muted-foreground hover:text-foreground shadow-subtle"
         >
-          + New Project
+          <LifeBuoy className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">Support</span>
         </Button>
 
-        <button
+        {/* Theme switcher */}
+        <Button
+          variant="outline"
+          size="sm"
           onClick={toggleTheme}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200 shadow-subtle active:scale-95"
+          className="h-8 gap-1.5 text-xs font-semibold px-2.5 rounded-lg border-border/80 bg-card/60 text-muted-foreground hover:text-foreground shadow-subtle"
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <Sun className="h-4 w-4 text-amber-400 animate-pulse-subtle" />
+            <>
+              <Sun className="h-3.5 w-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Light</span>
+            </>
           ) : (
-            <Moon className="h-4 w-4 text-slate-700" />
+            <>
+              <Moon className="h-3.5 w-3.5 text-slate-700" />
+              <span className="hidden sm:inline">Dark</span>
+            </>
           )}
+        </Button>
+
+        {/* Notifications Icon with Badge */}
+        <button
+          className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card/60 text-muted-foreground hover:text-foreground transition-colors shadow-subtle"
+          aria-label="Notifications"
+        >
+          <Bell className="h-3.5 w-3.5" />
+          <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[9px] font-bold text-white shadow-sm ring-1 ring-background">
+            21
+          </span>
         </button>
-
-        <Dropdown
-          align="right"
-          className="w-80"
-          trigger={
-            <button
-              className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-all shadow-subtle active:scale-95"
-              aria-label="Notifications"
-            >
-              <Bell className="h-4 w-4" />
-              {hasNotifications && (
-                <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-background animate-ping" />
-              )}
-              {hasNotifications && (
-                <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
-              )}
-            </button>
-          }
-        >
-          <div className="p-3 pb-2 border-b border-border/80 flex items-center justify-between">
-            <span className="font-bold text-xs text-foreground">Notifications</span>
-            <Badge variant="default" className="text-[10px] px-1.5 py-0">3 New</Badge>
-          </div>
-          <div className="py-1 max-h-60 overflow-y-auto">
-            <DropdownItem className="flex flex-col items-start gap-1 py-2">
-              <div className="flex items-center justify-between w-full">
-                <span className="font-semibold text-xs text-foreground">Production Deployment</span>
-                <span className="text-[10px] text-muted-foreground">2m ago</span>
-              </div>
-              <p className="text-[11px] text-muted-foreground text-left">
-                DevFlow v2.4.0 successfully deployed to AWS US-East.
-              </p>
-            </DropdownItem>
-            <DropdownItem className="flex flex-col items-start gap-1 py-2">
-              <div className="flex items-center justify-between w-full">
-                <span className="font-semibold text-xs text-foreground">New Team Member</span>
-                <span className="text-[10px] text-muted-foreground">1h ago</span>
-              </div>
-              <p className="text-[11px] text-muted-foreground text-left">
-                Elena Rostova joined the Frontend Core squad.
-              </p>
-            </DropdownItem>
-          </div>
-          <DropdownSeparator />
-          <div className="p-1">
-            <button
-              onClick={() => setHasNotifications(false)}
-              className="w-full text-center text-[11px] font-medium text-primary hover:underline py-1"
-            >
-              Mark all as read
-            </button>
-          </div>
-        </Dropdown>
-
-        <Dropdown
-          align="right"
-          className="w-56"
-          trigger={
-            <div className="flex items-center gap-2 cursor-pointer rounded-full p-0.5 hover:ring-2 hover:ring-primary/20 transition-all">
-              <Avatar
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-                fallback="MH"
-                size="md"
-                status="online"
-              />
-            </div>
-          }
-        >
-          <div className="px-3 py-2.5 border-b border-border/80">
-            <p className="text-xs font-bold text-foreground truncate">Mahedi Hasan</p>
-            <p className="text-[11px] text-muted-foreground truncate">mahedi@devflow.io</p>
-            <Badge variant="success" className="mt-1 text-[9px] px-1.5 py-0">Pro Member</Badge>
-          </div>
-          <div className="py-1">
-            <DropdownItem className="gap-2.5">
-              <User className="h-3.5 w-3.5 text-muted-foreground" />
-              <span>Profile Account</span>
-            </DropdownItem>
-            <DropdownItem className="gap-2.5">
-              <Settings className="h-3.5 w-3.5 text-muted-foreground" />
-              <span>Preferences</span>
-            </DropdownItem>
-            <DropdownItem className="gap-2.5">
-              <Shield className="h-3.5 w-3.5 text-muted-foreground" />
-              <span>API Security & Keys</span>
-            </DropdownItem>
-          </div>
-          <DropdownSeparator />
-          <div className="py-1">
-            <DropdownItem destructive className="gap-2.5">
-              <LogOut className="h-3.5 w-3.5" />
-              <span>Log out</span>
-            </DropdownItem>
-          </div>
-        </Dropdown>
       </div>
     </header>
   );

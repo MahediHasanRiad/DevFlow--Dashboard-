@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Home,
@@ -10,7 +9,6 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  Sparkles,
 } from 'lucide-react';
 import { NAV_SECTIONS, type NavItem } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
@@ -28,7 +26,6 @@ interface SidebarProps {
   setIsCollapsed: (collapsed: boolean) => void;
   activeRoute: string;
   setActiveRoute: (route: string) => void;
-  onOpenQuickAction?: () => void;
 }
 
 export function Sidebar({
@@ -44,22 +41,21 @@ export function Sidebar({
         isCollapsed ? 'w-[76px]' : 'w-64'
       )}
     >
-      {/* Brand Header */}
+      {/* Brand Header: MAKTech Business OS */}
       <div className="flex items-center justify-between h-16 px-4 border-b border-sidebar-border/80">
-        <div className="flex items-center gap-3 overflow-hidden">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-violet-500 text-white shadow-glow-primary">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          {!isCollapsed && (
-            <motion.div
-              initial={{ opacity: 0, x: -6 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -6 }}
-              className="flex flex-col leading-none"
-            >
-              <span className="font-bold text-base tracking-tight text-foreground">DevFlow</span>
-              <span className="text-[11px] font-medium text-muted-foreground">Admin Workspace</span>
-            </motion.div>
+        <div className="flex items-center gap-2 overflow-hidden">
+          {!isCollapsed ? (
+            <div className="flex flex-col leading-tight">
+              <div className="flex items-center gap-1 font-extrabold text-sm tracking-tight">
+                <span className="text-foreground">MAKTech</span>
+                <span className="text-sky-400">Business</span>
+              </div>
+              <span className="text-xs font-bold text-violet-400 tracking-wider">OS</span>
+            </div>
+          ) : (
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-extrabold text-xs">
+              M
+            </div>
           )}
         </div>
 
@@ -72,22 +68,37 @@ export function Sidebar({
         </button>
       </div>
 
+      {/* Logged In As User Info Block */}
+      {!isCollapsed && (
+        <div className="px-4 py-3 border-b border-sidebar-border/60 bg-muted/20">
+          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground/80">
+            LOGGED IN AS
+          </p>
+          <p className="text-xs font-bold text-foreground truncate mt-0.5">
+            MAHEDI HASAN RIAD
+          </p>
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">
+            TEAM MEMBER
+          </p>
+        </div>
+      )}
+
       {/* Navigation Sections & Tabs */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
         {NAV_SECTIONS.map((section, idx) => {
           const SectionIcon = sectionIconMap[section.icon] || Home;
 
           return (
             <div key={idx} className="space-y-1">
               {!isCollapsed ? (
-                <div className="flex items-center justify-between px-3 py-1.5 text-muted-foreground/90 hover:text-foreground cursor-pointer transition-colors group">
+                <div className="flex items-center justify-between px-3 py-1 text-muted-foreground/80 hover:text-foreground cursor-pointer transition-colors group">
                   <div className="flex items-center gap-2">
-                    <SectionIcon className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
-                    <span className="text-[11px] font-bold uppercase tracking-wider">
+                    <SectionIcon className="h-3.5 w-3.5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">
                       {section.title}
                     </span>
                   </div>
-                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground/70 group-hover:text-foreground transition-transform" />
+                  <ChevronDown className="h-3 w-3 text-muted-foreground/70 group-hover:text-foreground transition-transform" />
                 </div>
               ) : (
                 <div className="flex justify-center py-1">
@@ -104,7 +115,7 @@ export function Sidebar({
                       key={item.href}
                       onClick={() => setActiveRoute(item.href)}
                       className={cn(
-                        'group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-150',
+                        'group relative flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-150',
                         isActive
                           ? 'bg-[#2b244d] dark:bg-[#2b244d] text-white shadow-sm border border-violet-500/30 font-semibold'
                           : 'text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground'
